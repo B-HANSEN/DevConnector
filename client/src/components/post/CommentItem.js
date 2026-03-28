@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import Moment from 'react-moment'
+import moment from 'moment'
 import { deleteComment } from '../../actions/post'
 
 const CommentItem = ({
@@ -21,7 +21,7 @@ const CommentItem = ({
     <div>
       <p className="my-1">{text}</p>
       <p className="post-date">
-        Posted on <Moment format="YYYY/MM/DD">{date}</Moment>
+        Posted on {moment(date).format('YYYY/MM/DD')}
       </p>
       {/* make sure that actual user who made the comment is logged in user */}
       {!auth.loading && user === auth.user._id && (
