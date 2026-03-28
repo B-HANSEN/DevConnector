@@ -17,23 +17,23 @@ import PrivateRoute from '../routing/PrivateRoute'
 
 const AppRoutes = () => {
   return (
-    <section className="container">
+    <section className='container'>
       <Alert />
       <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profiles" element={<Profiles />} />
-        <Route path="/profile/:id" element={<Profile />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/profiles' element={<Profiles />} />
+        <Route path='/profile/:id' element={<Profile />} />
         <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/create-profile" element={<CreateProfile />} />
-          <Route path="/edit-profile" element={<EditProfile />} />
-          <Route path="/add-experience" element={<AddExperience />} />
-          <Route path="/add-education" element={<AddEducation />} />
-          <Route path="/posts" element={<Posts />} />
-          <Route path="/posts/:id" element={<Post />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/create-profile' element={<CreateProfile />} />
+          <Route path='/edit-profile' element={<EditProfile />} />
+          <Route path='/add-experience' element={<AddExperience />} />
+          <Route path='/add-education' element={<AddEducation />} />
+          <Route path='/posts' element={<Posts />} />
+          <Route path='/posts/:id' element={<Post />} />
         </Route>
-        <Route path="*" element={<NotFound />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </section>
   )

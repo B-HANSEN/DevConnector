@@ -26,8 +26,8 @@ const App = () => {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/*" element={<AppRoutes />} />
+          <Route path='/' element={<Landing />} />
+          <Route path='/*' element={<AppRoutes />} />
         </Routes>
       </Router>
     </Provider>

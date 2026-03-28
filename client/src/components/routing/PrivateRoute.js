@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 
 const PrivateRoute = ({ auth: { isAuthenticated, loading } }) => {
   if (!isAuthenticated && !loading) {
-    return <Navigate to="/login" />
+    return <Navigate to='/login' />
   }
   return <Outlet />
 }

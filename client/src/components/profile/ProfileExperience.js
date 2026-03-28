@@ -6,7 +6,7 @@ const ProfileExperience = ({
   experience: { company, title, location, current, from, to, description },
 }) => (
   <div>
-    <h3 className="text-dark">{company}</h3>
+    <h3 className='text-dark'>{company}</h3>
     <p>
       {moment(from).format('YYYY/MM/DD')} -{' '}
       {!to ? 'Now' : moment(to).format('YYYY/MM/DD')}
