@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import Register from '../auth/Register'
 import Login from '../auth/Login'
 import Alert from '../layout/Alert'
@@ -15,25 +15,28 @@ import Post from '../post/Post'
 import NotFound from '../layout/NotFound'
 import PrivateRoute from '../routing/PrivateRoute'
 
-const Routes = () => {
+const AppRoutes = () => {
   return (
     <section className="container">
       <Alert />
-      <Switch>
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/profiles" component={Profiles} />
-        <Route exact path="/profile/:id" component={Profile} />
-        <PrivateRoute exact path="/dashboard" component={Dashboard} />
-        <PrivateRoute exact path="/create-profile" component={CreateProfile} />
-        <PrivateRoute exact path="/edit-profile" component={EditProfile} />
-        <PrivateRoute exact path="/add-experience" component={AddExperience} />
-        <PrivateRoute exact path="/add-education" component={AddEducation} />
-        <PrivateRoute exact path="/posts" component={Posts} />
-        <PrivateRoute exact path="/posts/:id" component={Post} />
-        <Route component={NotFound} />
-      </Switch>
+      <Routes>
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profiles" element={<Profiles />} />
+        <Route path="/profile/:id" element={<Profile />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/create-profile" element={<CreateProfile />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/add-experience" element={<AddExperience />} />
+          <Route path="/add-education" element={<AddEducation />} />
+          <Route path="/posts" element={<Posts />} />
+          <Route path="/posts/:id" element={<Post />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </section>
   )
 }
-export default Routes
+
+export default AppRoutes

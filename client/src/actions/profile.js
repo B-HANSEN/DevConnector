@@ -104,7 +104,7 @@ export const getGithubRepos = (username) => async (dispatch) => {
 // history object (with method push) required to redirect to a client-side route
 // editing or creating new profile --> edit (avoid creating a separate function)
 export const createProfile =
-  (formData, history, edit = false) =>
+  (formData, navigate, edit = false) =>
   async (dispatch) => {
     try {
       // to send data, create a config object
@@ -124,7 +124,7 @@ export const createProfile =
         setAlert(edit ? 'Profile updated.' : 'Profile created.', 'success'),
       )
       if (!edit) {
-        history.push('/dashboard')
+        navigate('/dashboard')
       }
     } catch (err) {
       const errors = err.response.data.errors
@@ -143,7 +143,7 @@ export const createProfile =
   }
 
 // add experience
-export const addExperience = (formData, history) => async (dispatch) => {
+export const addExperience = (formData, navigate) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -158,7 +158,7 @@ export const addExperience = (formData, history) => async (dispatch) => {
     })
     dispatch(setAlert('Experience added', 'success'))
 
-    history.push('/dashboard')
+    navigate('/dashboard')
   } catch (err) {
     const errors = err.response.data.errors
     if (errors) {
@@ -175,7 +175,7 @@ export const addExperience = (formData, history) => async (dispatch) => {
 }
 
 // add education
-export const addEducation = (formData, history) => async (dispatch) => {
+export const addEducation = (formData, navigate) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -190,7 +190,7 @@ export const addEducation = (formData, history) => async (dispatch) => {
     })
     dispatch(setAlert('Education added', 'success'))
 
-    history.push('/dashboard')
+    navigate('/dashboard')
   } catch (err) {
     const errors = err.response.data.errors
     if (errors) {
