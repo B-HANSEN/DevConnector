@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import './App.css'
-import Navbar from './components/layout/Navbar'
-import Landing from './components/layout/Landing'
-import AppRoutes from './components/routing/Routes'
-
-// Redux
+import { useEffect } from 'react'
 import { Provider } from 'react-redux'
-import store from './store'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import { loadUser } from './actions/auth'
+import './App.css'
+import Landing from './components/layout/Landing'
+import Navbar from './components/layout/Navbar'
+import AppRoutes from './components/routing/Routes'
+import store from './store'
 import setAuthToken from './utils/setAuthToken'
 
 if (localStorage.token) {
@@ -16,7 +14,6 @@ if (localStorage.token) {
 }
 
 const App = () => {
-  // corresponds to componentDidMount; add [] to let it run only once and avoid infinite loop:
   useEffect(() => {
     store.dispatch(loadUser())
   }, [])

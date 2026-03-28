@@ -1,7 +1,6 @@
 // any route that requires user to be logged in
 // use Private Route instead of Routes
 
-import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'

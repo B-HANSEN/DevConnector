@@ -7,7 +7,10 @@ export default defineConfig({
       name: 'treat-js-files-as-jsx',
       async transform(code, id) {
         if (!id.match(/src\/.*\.js$/)) return null
-        return transformWithEsbuild(code, id, { loader: 'jsx' })
+        return transformWithEsbuild(code, id, {
+          loader: 'jsx',
+          jsx: 'automatic',
+        })
       },
     },
     react(),
@@ -17,6 +20,7 @@ export default defineConfig({
       loader: {
         '.js': 'jsx',
       },
+      jsx: 'automatic',
     },
   },
   server: {
