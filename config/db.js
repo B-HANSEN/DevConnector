@@ -1,18 +1,14 @@
-// setup MongoDB connection
-
-const mongoose = require('mongoose')
-const config = require('config')
-const db = config.get('mongoURI')
+import mongoose from 'mongoose'
+import config from 'config'
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(db)
+    await mongoose.connect(config.get('mongoURI'))
     console.log('MongoDB connected.')
   } catch (err) {
     console.error(err.message)
-    // exit process with failure
     process.exit(1)
   }
 }
 
-module.exports = connectDB
+export default connectDB

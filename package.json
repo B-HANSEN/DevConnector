@@ -2,6 +2,7 @@
 	"name": "devconnector",
 	"version": "2.0.0",
 	"description": "Social network for developers",
+	"type": "module",
 	"main": "server.js",
 	"scripts": {
 		"start": "node server",
@@ -20,13 +21,11 @@
 		"bcryptjs": "^3.0.3",
 		"config": "^4.4.1",
 		"dotenv": "^17.3.1",
-		"express": "^4.17.1",
-		"express-validator": "^6.4.1",
+		"express": "^5.2.1",
+		"express-validator": "^7.3.1",
 		"gravatar": "^1.8.2",
 		"jsonwebtoken": "^9.0.3",
-		"mongoose": "^9.3.3",
-		"normalize-url": "^5.0.0",
-		"request": "^2.88.2"
+		"mongoose": "^9.3.3"
 	},
 	"devDependencies": {
 		"concurrently": "^9.2.1",

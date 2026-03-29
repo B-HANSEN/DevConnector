@@ -1,21 +1,18 @@
-const express = require('express')
-const request = require('request')
-const config = require('config')
+import express from 'express'
+import config from 'config'
+import { check, validationResult } from 'express-validator'
+import auth from '../../middleware/auth.js'
+import Profile from '../../models/Profile.js'
+import User from '../../models/User.js'
+import Post from '../../models/Post.js'
+
 const router = express.Router()
-const auth = require('../../middleware/auth')
-const { check, validationResult } = require('express-validator')
 
-const Profile = require('../../models/Profile')
-const User = require('../../models/User')
-const Post = require('../../models/Post')
-
-// @route   GET api/profile/me   // based on user ID that is in the token
+// @route   GET api/profile/me
 // @desc    Get current user's profile
 // @access  Private
 router.get('/me', auth, async (req, res) => {
   try {
-    // set user to the userID that comes in with the token
-    // use populate to add stuff to the query (name, avatar are in the User model, not the Profile model)
     const profile = await Profile.findOne({
       user: req.user.id,
     }).populate('user', ['name', 'avatar'])
@@ -34,7 +31,6 @@ router.get('/me', auth, async (req, res) => {
 // @route   POST api/profile
 // @desc    Create or update a user's profile
 // @access  Private
-// require auth and validation middleware, so pass in as []
 router.post(
   '/',
   [
@@ -65,7 +61,6 @@ router.post(
       facebook,
     } = req.body
 
-    // build profile object, initialise first
     const profileFields = {}
     profileFields.user = req.user.id
     if (company) profileFields.company = company
@@ -74,13 +69,10 @@ router.post(
     if (bio) profileFields.bio = bio
     if (status) profileFields.status = status
     if (githubusername) profileFields.githubusername = githubusername
-    // turn skills (comma-separated list) into an array with split(',')-method
-    // trim()-method eliminates leading and trailing spaces
     if (skills) {
       profileFields.skills = skills.split(',').map((skill) => skill.trim())
     }
 
-    // build social object, initialise first
     profileFields.social = {}
     if (youtube) profileFields.social.youtube = youtube
     if (twitter) profileFields.social.twitter = twitter
@@ -91,7 +83,6 @@ router.post(
     try {
       let profile = await Profile.findOne({ user: req.user.id })
 
-      // if there is a profile, update it
       if (profile) {
         profile = await Profile.findOneAndUpdate(
           { user: req.user.id },
@@ -100,12 +91,12 @@ router.post(
         )
         return res.json(profile)
       }
-      // else create new profile
+
       profile = new Profile(profileFields)
       await profile.save()
       res.json(profile)
     } catch (err) {
-      console.error(err.messafge)
+      console.error(err.message)
       res.status(500).send('Server Error.')
     }
   },
@@ -124,26 +115,19 @@ router.get('/', async (req, res) => {
   }
 })
 
-// @route   GET api/profile/user/:user_id  // add colon for placeholder
+// @route   GET api/profile/user/:user_id
 // @desc    Get profile by user ID
 // @access  Public
 router.get('/user/:user_id', async (req, res) => {
   try {
-    // const profile = await Profile.findOne({
-    // 	user: req.params.user_id,
-    // }).populate('user', ['name', 'avatar']);
+    const profile = await Profile.findOne({
+      user: req.params.user_id,
+    }).populate('user', ['name', 'avatar'])
 
-    const profile = await Profile.findOne({ user: req.params.user_id })
-    profile.populated('user', ['name', 'avatar'])
-    await profile.populate('user').populate(['name', 'avatar']).execPopulate()
-
-    // if profile not available
     if (!profile) return res.status(400).json({ msg: 'Profile not found.' })
-    // if profile available
     res.json(profile)
   } catch (err) {
     console.error(err.message)
-    // error object with name property; CastError is a certain kind of error
     if (err.name === 'CastError') {
       return res.status(400).json({ msg: 'Profile not found.' })
     }
@@ -153,16 +137,12 @@ router.get('/user/:user_id', async (req, res) => {
 
 // @route   DELETE api/profile
 // @desc    Delete profile, user & posts
-// @access  Private // i.e. access to the token
+// @access  Private
 router.delete('/', auth, async (req, res) => {
   try {
-    // remove user's posts
     await Post.deleteMany({ user: req.user.id })
-    // remove profile
-    await Profile.findOneAndRemove({ user: req.user.id })
-    // remove account
-    await User.findOneAndRemove({ _id: req.user.id })
-
+    await Profile.findOneAndDelete({ user: req.user.id })
+    await User.findOneAndDelete({ _id: req.user.id })
     res.json({ msg: 'User deleted.' })
   } catch (err) {
     console.error(err.message)
@@ -184,7 +164,6 @@ router.put(
     ],
   ],
   async (req, res) => {
-    // validation
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
@@ -192,15 +171,7 @@ router.put(
     const { title, company, location, from, to, current, description } =
       req.body
 
-    const newExp = {
-      title,
-      company,
-      location,
-      from,
-      to,
-      current,
-      description,
-    }
+    const newExp = { title, company, location, from, to, current, description }
 
     try {
       const profile = await Profile.findOne({ user: req.user.id })
@@ -220,12 +191,9 @@ router.put(
 router.delete('/experience/:exp_id', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id })
-    // get remove index
     const removeIndex = profile.experience
       .map((item) => item.id)
       .indexOf(req.params.exp_id)
-
-    // splicing the experience out & save it
     profile.experience.splice(removeIndex, 1)
     await profile.save()
     res.json(profile)
@@ -250,7 +218,6 @@ router.put(
     ],
   ],
   async (req, res) => {
-    // validation
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
@@ -286,12 +253,9 @@ router.put(
 router.delete('/education/:edu', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id })
-    // get remove index
     const removeIndex = profile.education
       .map((item) => item.id)
       .indexOf(req.params.edu)
-
-    // splicing the education out & save it
     profile.education.splice(removeIndex, 1)
     await profile.save()
     res.json(profile)
@@ -306,36 +270,23 @@ router.delete('/education/:edu', auth, async (req, res) => {
 // @access  Public
 router.get('/github/:username', async (req, res) => {
   try {
-    // define options:
-    // username passed thru URL + max 5 pages and sort them,
-    // add clientID & client secret from config
-    const options = {
-      uri: encodeURI(
-        `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`,
-      ),
-      method: 'GET',
-      headers: {
-        'user-agent': 'node.js',
-        Authorization: `token ${config.get('githubToken')}`,
+    const response = await fetch(
+      `https://api.github.com/users/${encodeURIComponent(req.params.username)}/repos?per_page=5&sort=created:asc`,
+      {
+        headers: {
+          'user-agent': 'node.js',
+          Authorization: `token ${config.get('githubToken')}`,
+        },
       },
-      // auth: {
-      // 	user: config.get('githubClientId'),
-      // 	pass: config.get('githubSecret'),
-      // },
+    )
+    if (!response.ok) {
+      return res.status(404).json({ msg: 'No Github profile found' })
     }
-    request(options, (error, response, body) => {
-      if (error) console.error(error)
-      // test status response
-      if (response.statusCode !== 200) {
-        return res.status(404).json({ msg: 'No Github profile found' })
-      }
-      // body is a regular string with escaped quotes etc, so apply JSON.parse()
-      res.json(JSON.parse(body))
-    })
+    res.json(await response.json())
   } catch (err) {
     console.error(err.message)
     res.status(500).send('Server Error.')
   }
 })
 
-module.exports = router
+export default router

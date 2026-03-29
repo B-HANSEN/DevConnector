@@ -1,10 +1,10 @@
-const express = require('express')
+import express from 'express'
+import { check, validationResult } from 'express-validator'
+import auth from '../../middleware/auth.js'
+import Post from '../../models/Post.js'
+import User from '../../models/User.js'
+
 const router = express.Router()
-const { check, validationResult } = require('express-validator')
-const auth = require('../../middleware/auth')
-const Post = require('../../models/Post')
-const Profile = require('../../models/Profile')
-const User = require('../../models/User')
 
 // @route   POST api/posts
 // @desc    Create a post
@@ -34,7 +34,7 @@ router.post(
 
       const post = await newPost.save()
       res.json(post)
-    } catch (error) {
+    } catch (err) {
       console.error(err.message)
       res.status(500).send('Server Error.')
     }
@@ -43,7 +43,7 @@ router.post(
 
 // @route   GET api/posts
 // @desc    Get all posts
-// @access  Private  // must be logged in to see the posts
+// @access  Private
 router.get('/', auth, async (req, res) => {
   try {
     // most recent first, i.e. -1 else +1
@@ -57,17 +57,17 @@ router.get('/', auth, async (req, res) => {
 
 // @route   GET api/posts/:id
 // @desc    Get post by ID
-// @access  Private  // must be logged in to see the posts
+// @access  Private
 router.get('/:id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id)
     if (!post) {
       return res.status(404).json({ msg: 'Post not found.' })
     }
-
     res.json(post)
   } catch (err) {
     console.error(err.message)
+    // CastError means the id format was invalid, not a server fault
     if (err.name === 'CastError') {
       return res.status(404).json({ msg: 'Post not found.' })
     }
@@ -76,17 +76,16 @@ router.get('/:id', auth, async (req, res) => {
 })
 
 // @route   DELETE api/posts/:id
-// @desc    Delete a posts
-// @access  Private  // must be logged in to see the posts
+// @desc    Delete a post
+// @access  Private
 router.delete('/:id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id)
-    // if post not found, return error
     if (!post) {
       return res.status(404).json({ msg: 'Post not found.' })
     }
-    // only user that created the post can delete the post
-    // check user (post.user is an object id; req.user.id is a string)
+    // only the user that created the post can delete it
+    // post.user is an ObjectId; req.user.id is a string
     if (post.user.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'User not authorized.' })
     }
@@ -109,19 +108,19 @@ router.put('/like/:id', auth, async (req, res) => {
     const post = await Post.findById(req.params.id)
 
     // check if post already liked by this user
-    // filter thru the likes array of a post, compare current user to user that's logged in
     if (
       post.likes.filter((like) => like.user.toString() === req.user.id).length >
       0
     ) {
       return res.status(400).json({ msg: 'Post already liked.' })
     }
-    // if not yet liked, unshift the post onto the beginning of the array:
+    // if not yet liked, add to the beginning of the likes array
     post.likes.unshift({ user: req.user.id })
     await post.save()
     res.json(post.likes)
   } catch (err) {
-    console.error(500).send('Server Error')
+    console.error(err.message)
+    res.status(500).send('Server Error')
   }
 })
 
@@ -132,8 +131,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id)
 
-    // check if post already liked by this user
-    // filter thru the likes array of a post, compare current user to user that's logged in
+    // check if post has been liked by this user
     if (
       post.likes.filter((like) => like.user.toString() === req.user.id)
         .length === 0
@@ -145,11 +143,11 @@ router.put('/unlike/:id', auth, async (req, res) => {
       .map((like) => like.user.toString())
       .indexOf(req.user.id)
     post.likes.splice(removeIndex, 1)
-
     await post.save()
     res.json(post.likes)
   } catch (err) {
-    console.error(500).send('Server Error')
+    console.error(err.message)
+    res.status(500).send('Server Error')
   }
 })
 
@@ -169,7 +167,7 @@ router.post(
       const user = await User.findById(req.user.id).select('-password')
       const post = await Post.findById(req.params.id)
 
-      // no collection in the db; so not required to do new Comment, just an object
+      // comments are embedded in the post document, not a separate collection
       const newComment = {
         text: req.body.text,
         name: user.name,
@@ -177,11 +175,11 @@ router.post(
         user: req.user.id,
       }
 
-      // unshift() adds to the beginning of post's comments
+      // unshift() adds to the beginning of the comments array
       post.comments.unshift(newComment)
       await post.save()
       res.json(post.comments)
-    } catch (error) {
+    } catch (err) {
       console.error(err.message)
       res.status(500).send('Server Error.')
     }
@@ -198,28 +196,25 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
     const comment = post.comments.find(
       (comment) => comment.id === req.params.comment_id,
     )
-    // ensure comment exists:
+    // ensure comment exists
     if (!comment) {
       return res.status(404).json({ msg: 'Comment does not exist.' })
     }
-
     // check user
     if (comment.user.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'User not authorised' })
     }
-
     // get remove index
     const removeIndex = post.comments
       .map((comment) => comment.user.toString())
       .indexOf(req.user.id)
     post.comments.splice(removeIndex, 1)
-
     await post.save()
     res.json(post.comments)
-  } catch (error) {
+  } catch (err) {
     console.error(err.message)
     res.status(500).send('Server Error.')
   }
 })
 
-module.exports = router
+export default router

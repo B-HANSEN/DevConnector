@@ -1,7 +1,6 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const ProfileSchema = new mongoose.Schema({
-  // to refer to _id in MongoDB, use following logic:
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
@@ -19,8 +18,6 @@ const ProfileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // comma-seperated value list, then us JS to turn it into an array
-  // javascript, php, python, etc.
   skills: {
     type: [String],
     required: true,
@@ -113,4 +110,4 @@ const ProfileSchema = new mongoose.Schema({
   },
 })
 
-module.exports = Profile = mongoose.model('profile', ProfileSchema)
+export default mongoose.model('profile', ProfileSchema)

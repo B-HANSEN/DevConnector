@@ -1,13 +1,12 @@
-const express = require('express')
-const router = express.Router()
-const gravatar = require('gravatar')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const config = require('config')
-const { check, validationResult } = require('express-validator')
-const normalize = require('normalize-url')
+import express from 'express'
+import gravatar from 'gravatar'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import config from 'config'
+import { check, validationResult } from 'express-validator'
+import User from '../../models/User.js'
 
-const User = require('../../models/User')
+const router = express.Router()
 
 // @route   POST api/users
 // @desc    Register User
@@ -24,7 +23,7 @@ router.post(
   ],
   async (req, res) => {
     const errors = validationResult(req)
-    // return 400 bad request if there is errors
+    // return 400 bad request if there are errors
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
     }
@@ -34,59 +33,45 @@ router.post(
     try {
       let user = await User.findOne({ email })
 
-      // check if users exists
+      // check if user exists
       if (user) {
         return res
           .status(400)
           .json({ errors: [{ msg: 'User already exists.' }] })
       }
 
-      // get users gravatar
-      const avatar = normalize(
-        gravatar.url(email, {
-          s: '200', // size
-          r: 'pg', // rating
-          d: 'mm', // default img, a user icon
-        }),
-        { forceHttps: true },
-      )
+      // get users gravatar; force https on the protocol-relative URL gravatar returns
+      const avatar = gravatar
+        .url(email, { s: '200', r: 'pg', d: 'mm' })
+        .replace(/^\/\//, 'https://')
 
       // create instance of user
-      user = new User({
-        name,
-        email,
-        avatar,
-        password,
-      })
+      user = new User({ name, email, avatar, password })
 
-      // encrypt password using bcrypt; use 10 rounds as per docs; salt to do hashing with
+      // encrypt password using bcrypt; use 10 rounds as per docs
       const salt = await bcrypt.genSalt(10)
       user.password = await bcrypt.hash(password, salt)
       // save to DB
       await user.save()
 
       // return json webtoken
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      }
+      const payload = { user: { id: user.id } }
       jwt.sign(
         payload,
         config.get('jwtSecret'),
-        // option to expire in e.g. 1 hour in production, in dev more
+        // expire in 100 hours in dev; tighten in production
         { expiresIn: 360000 },
-        // callback, check for error or send token back to client
+        // callback: check for error or send token back to client
         (err, token) => {
           if (err) throw err
           res.json({ token })
         },
       )
     } catch (err) {
-      console.log(err.message)
+      console.error(err.message)
       res.status(500).send('Server error.')
     }
   },
 )
 
-module.exports = router
+export default router
