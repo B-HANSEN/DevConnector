@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import { getPost } from '../../actions/post'
@@ -8,11 +8,11 @@ import PostItem from '../posts/PostItem'
 import CommentItem from '../post/CommentItem'
 import CommentForm from '../post/CommentForm'
 
-// deconstruct match for the ID from the URL post: { match s}
-const Post = ({ getPost, post: { post, loading }, match }) => {
+const Post = ({ getPost, post: { post, loading } }) => {
+  const { id } = useParams()
   useEffect(() => {
-    getPost(match.params.id)
-  }, [getPost])
+    getPost(id)
+  }, [getPost, id])
 
   return loading || post === null ? (
     <Spinner />

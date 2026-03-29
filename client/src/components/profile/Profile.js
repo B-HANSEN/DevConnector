@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
@@ -14,11 +14,11 @@ const Profile = ({
   getProfileById,
   profile: { profile, loading },
   auth,
-  match,
 }) => {
+  const { id } = useParams()
   useEffect(() => {
-    getProfileById(match.params.id)
-  }, [getProfileById, match.params.id])
+    getProfileById(id)
+  }, [getProfileById, id])
 
   return (
     <>

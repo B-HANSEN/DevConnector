@@ -5,6 +5,7 @@ export default defineConfig({
   plugins: [
     {
       name: 'treat-js-files-as-jsx',
+      enforce: 'pre',
       async transform(code, id) {
         if (!id.match(/src\/.*\.js$/)) return null
         return transformWithEsbuild(code, id, {
@@ -16,11 +17,10 @@ export default defineConfig({
     react(),
   ],
   optimizeDeps: {
-    esbuildOptions: {
-      loader: {
+    rolldownOptions: {
+      moduleTypes: {
         '.js': 'jsx',
       },
-      jsx: 'automatic',
     },
   },
   server: {
