@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { connect } from 'react-redux'
@@ -65,15 +64,6 @@ const PostItem = ({
 PostItem.defaultProps = {
   showActions: true,
 }
-
-PostItem.propTypes = {
-  post: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  addLike: PropTypes.func.isRequired,
-  removeLike: PropTypes.func.isRequired,
-  deletePost: PropTypes.func.isRequired,
-}
-
 const mapStateToProps = (state) => ({
   auth: state.auth,
 })

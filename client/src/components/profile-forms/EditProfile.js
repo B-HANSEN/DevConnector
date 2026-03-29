@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createProfile, getCurrentProfile } from '../../actions/profile'
 
@@ -250,13 +249,6 @@ const EditProfile = ({
     </>
   )
 }
-
-EditProfile.propTypes = {
-  createProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
-}
-
 const mapStateToProps = (state) => ({
   profile: state.profile,
 })

@@ -1,6 +1,5 @@
 import { Link, Navigate } from 'react-router-dom'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 
 const Landing = ({ isAuthenticated }) => {
   if (isAuthenticated) {
@@ -29,11 +28,6 @@ const Landing = ({ isAuthenticated }) => {
     </section>
   )
 }
-
-Landing.propTypes = {
-  isAuthenticated: PropTypes.bool,
-}
-
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 })

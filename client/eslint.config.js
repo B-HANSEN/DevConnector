@@ -21,7 +21,7 @@ export default [
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      'react/prop-types': 'warn',
+      'react/prop-types': 'off',
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },

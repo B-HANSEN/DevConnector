@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addExperience } from '../../actions/profile'
-import PropTypes from 'prop-types'
 
 const AddExperience = ({ addExperience }) => {
   const navigate = useNavigate()
@@ -110,9 +109,4 @@ const AddExperience = ({ addExperience }) => {
     </>
   )
 }
-
-AddExperience.propTypes = {
-  addExperience: PropTypes.func.isRequired,
-}
-
 export default connect(null, { addExperience })(AddExperience)

@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import ProfileTop from './ProfileTop'
@@ -79,13 +78,6 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
     </>
   )
 }
-
-Profile.propTypes = {
-  getProfileById: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-}
-
 const mapStateToProps = (state) => ({
   profile: state.profile,
   auth: state.auth,

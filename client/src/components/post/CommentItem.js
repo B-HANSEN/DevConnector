@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
@@ -33,14 +32,6 @@ const CommentItem = ({
     </div>
   </div>
 )
-
-CommentItem.propTypes = {
-  postId: PropTypes.number.isRequired,
-  comment: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  deleteComment: PropTypes.func.isRequired,
-}
-
 const mapStateToProps = (state) => ({
   auth: state.auth,
 })

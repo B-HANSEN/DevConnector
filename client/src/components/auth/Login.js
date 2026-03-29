@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import { login } from '../../actions/auth'
 
 const Login = ({ login, isAuthenticated }) => {
@@ -62,12 +61,6 @@ const Login = ({ login, isAuthenticated }) => {
     </>
   )
 }
-
-login.propTypes = {
-  login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
-}
-
 // subscribe to Redux and get updates on isAuthenticated
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,

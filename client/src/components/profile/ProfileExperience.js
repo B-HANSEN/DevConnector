@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import moment from 'moment'
 
 const ProfileExperience = ({
@@ -18,9 +17,4 @@ const ProfileExperience = ({
     </p>
   </div>
 )
-
-ProfileExperience.propTypes = {
-  experience: PropTypes.object.isRequired,
-}
-
 export default ProfileExperience

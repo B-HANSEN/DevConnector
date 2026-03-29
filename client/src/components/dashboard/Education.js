@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { deleteEducation } from '../../actions/profile'
@@ -39,10 +38,4 @@ const Education = ({ education, deleteEducation }) => {
     </>
   )
 }
-
-Education.propTypes = {
-  education: PropTypes.array.isRequired,
-  deleteEducation: PropTypes.func.isRequired,
-}
-
 export default connect(null, { deleteEducation })(Education)

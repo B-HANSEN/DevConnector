@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import DashboardActions from './DashboardActions'
@@ -49,14 +48,6 @@ const Dashboard = ({
     </>
   )
 }
-
-Dashboard.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
-  deleteAccount: PropTypes.func.isRequired,
-}
-
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,

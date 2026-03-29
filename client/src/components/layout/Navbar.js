@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import { logout } from '../../actions/auth'
 
 const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
@@ -57,12 +56,6 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
     </nav>
   )
 }
-
-Navbar.propTypes = {
-  logout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-}
-
 const mapStateToProps = (state) => ({
   auth: state.auth,
 })

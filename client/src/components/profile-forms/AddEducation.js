@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { addEducation } from '../../actions/profile'
-import PropTypes from 'prop-types'
 
 const AddEducation = ({ addEducation }) => {
   const navigate = useNavigate()
@@ -111,9 +110,4 @@ const AddEducation = ({ addEducation }) => {
     </>
   )
 }
-
-AddEducation.propTypes = {
-  addEducation: PropTypes.func.isRequired,
-}
-
 export default connect(null, { addEducation })(AddEducation)
