@@ -1,4 +1,4 @@
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 const ProfileExperience = ({
   experience: { company, title, from, to, description },
@@ -6,8 +6,8 @@ const ProfileExperience = ({
   <div>
     <h3 className='text-dark'>{company}</h3>
     <p>
-      {moment(from).format('YYYY/MM/DD')} -{' '}
-      {!to ? 'Now' : moment(to).format('YYYY/MM/DD')}
+      {dayjs(from).format('YYYY/MM/DD')} -{' '}
+      {!to ? 'Now' : dayjs(to).format('YYYY/MM/DD')}
     </p>
     <p>
       <strong>Position: </strong> {title}

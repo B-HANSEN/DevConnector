@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { deleteEducation } from '../../actions/profile'
 
 const Education = ({ education, deleteEducation }) => {
@@ -8,8 +8,8 @@ const Education = ({ education, deleteEducation }) => {
       <td>{edu.school}</td>
       <td className='hide-sm'>{edu.degree}</td>
       <td>
-        {moment(edu.from).format('YYYY/MM/DD')} -
-        {edu.to === null ? ' Now ' : moment(edu.to).format('YYYY/MM/DD')}
+        {dayjs(edu.from).format('YYYY/MM/DD')} -
+        {edu.to === null ? ' Now ' : dayjs(edu.to).format('YYYY/MM/DD')}
       </td>
       <td>
         <button

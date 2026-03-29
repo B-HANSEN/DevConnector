@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { deleteComment } from '../../actions/post'
 
 const CommentItem = ({
@@ -18,7 +18,7 @@ const CommentItem = ({
     </div>
     <div>
       <p className='my-1'>{text}</p>
-      <p className='post-date'>Posted on {moment(date).format('YYYY/MM/DD')}</p>
+      <p className='post-date'>Posted on {dayjs(date).format('YYYY/MM/DD')}</p>
       {/* make sure that actual user who made the comment is logged in user */}
       {!auth.loading && user === auth.user._id && (
         <button

@@ -8,6 +8,7 @@ const Login = ({ login, isAuthenticated }) => {
     email: '',
     password: '',
   })
+  const [showPassword, setShowPassword] = useState(false)
 
   const { email, password } = formData
   // change state object, copy of formData and then change the name to value of input
@@ -42,9 +43,9 @@ const Login = ({ login, isAuthenticated }) => {
             required
           />
         </div>
-        <div className='form-group'>
+        <div className='form-group' style={{ position: 'relative' }}>
           <input
-            type='password'
+            type={showPassword ? 'text' : 'password'}
             placeholder='Password'
             name='password'
             minLength='6'
@@ -52,11 +53,27 @@ const Login = ({ login, isAuthenticated }) => {
             onChange={(e) => onChange(e)}
             required
           />
+          <button
+            type='button'
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: 'absolute',
+              right: '0.75rem',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              color: '#aaa',
+            }}
+          >
+            <i className={showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'} />
+          </button>
         </div>
         <input type='submit' className='btn btn-primary' value='Login' />
       </form>
       <p className='my-1'>
-        Don't have an account? <Link to='/register'>Sign Up</Link>
+        Don&apos;t have an account? <Link to='/register'>Sign Up</Link>
       </p>
     </>
   )

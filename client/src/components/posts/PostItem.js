@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { connect } from 'react-redux'
 import { addLike, removeLike, deletePost } from '../../actions/post'
 
@@ -20,7 +20,7 @@ const PostItem = ({
     </div>
     <div>
       <p className='my-1'>{text}</p>
-      <p className='post-date'>Posted on {moment(date).format('YYYY/MM/DD')}</p>
+      <p className='post-date'>Posted on {dayjs(date).format('YYYY/MM/DD')}</p>
 
       {/* render actions only in post component, but not in comment component; reuse other code for both components */}
       {showActions && (

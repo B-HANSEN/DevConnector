@@ -11,6 +11,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     password: '',
     password2: '',
   })
+  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword2, setShowPassword2] = useState(false)
 
   const { name, email, password, password2 } = formData
   // change state object, copy of formData and then change the name to value of input
@@ -60,25 +62,55 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             Gravatar email
           </small>
         </div>
-        <div className='form-group'>
+        <div className='form-group' style={{ position: 'relative' }}>
           <input
-            type='password'
+            type={showPassword ? 'text' : 'password'}
             placeholder='Password'
             name='password'
-            // minLength='6'
             value={password}
             onChange={(e) => onChange(e)}
           />
+          <button
+            type='button'
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: 'absolute',
+              right: '0.75rem',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              color: '#aaa',
+            }}
+          >
+            <i className={showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'} />
+          </button>
         </div>
-        <div className='form-group'>
+        <div className='form-group' style={{ position: 'relative' }}>
           <input
-            type='password'
+            type={showPassword2 ? 'text' : 'password'}
             placeholder='Confirm Password'
             name='password2'
-            // minLength='6'
             value={password2}
             onChange={(e) => onChange(e)}
           />
+          <button
+            type='button'
+            onClick={() => setShowPassword2(!showPassword2)}
+            style={{
+              position: 'absolute',
+              right: '0.75rem',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              color: '#aaa',
+            }}
+          >
+            <i className={showPassword2 ? 'fas fa-eye-slash' : 'fas fa-eye'} />
+          </button>
         </div>
         <input type='submit' className='btn btn-primary' value='Register' />
       </form>

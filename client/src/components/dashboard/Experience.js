@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { deleteExperience } from '../../actions/profile'
 
 const Experience = ({ experience, deleteExperience }) => {
@@ -8,8 +8,8 @@ const Experience = ({ experience, deleteExperience }) => {
       <td>{exp.company}</td>
       <td className='hide-sm'>{exp.title}</td>
       <td>
-        {moment(exp.from).format('YYYY/MM/DD')} -
-        {exp.to === null ? ' Now ' : moment(exp.to).format('YYYY/MM/DD')}
+        {dayjs(exp.from).format('YYYY/MM/DD')} -
+        {exp.to === null ? ' Now ' : dayjs(exp.to).format('YYYY/MM/DD')}
       </td>
       <td>
         <button
