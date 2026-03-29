@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { connect } from 'react-redux'
-import { addPost } from '../../actions/post'
+import { addPost } from '../../slices/postSlice'
 
 const PostForm = ({ addPost }) => {
   const [text, setText] = useState('')

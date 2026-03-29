@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { connect } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
-import { setAlert } from '../../actions/alert'
-import { register } from '../../actions/auth'
+import { setAlert } from '../../slices/alertSlice'
+import { register } from '../../slices/authSlice'
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({

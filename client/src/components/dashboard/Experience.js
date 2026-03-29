@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import dayjs from 'dayjs'
-import { deleteExperience } from '../../actions/profile'
+import { deleteExperience } from '../../slices/profileSlice'
 
 const Experience = ({ experience, deleteExperience }) => {
   const experiences = experience.map((exp) => (

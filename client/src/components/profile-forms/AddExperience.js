@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { addExperience } from '../../actions/profile'
+import { addExperience } from '../../slices/profileSlice'
 
 const AddExperience = ({ addExperience }) => {
   const navigate = useNavigate()

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { getGithubRepos } from '../../actions/profile'
+import { getGithubRepos } from '../../slices/profileSlice'
 import Spinner from '../layout/Spinner'
 
 const ProfileGithub = ({ username, getGithubRepos, repos }) => {

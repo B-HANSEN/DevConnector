@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import PostItem from './PostItem'
-import { getPosts } from '../../actions/post'
+import { getPosts } from '../../slices/postSlice'
 import PostForm from './PostForm'
 
 const Posts = ({ getPosts, post: { posts, loading } }) => {

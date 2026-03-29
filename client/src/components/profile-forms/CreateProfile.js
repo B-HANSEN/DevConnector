@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { createProfile } from '../../actions/profile'
+import { createProfile } from '../../slices/profileSlice'
 
 const CreateProfile = ({ createProfile }) => {
   const navigate = useNavigate()

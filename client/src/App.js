@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Provider } from 'react-redux'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
-import { loadUser } from './actions/auth'
+import { loadUser } from './slices/authSlice'
 import './App.css'
 import Landing from './components/layout/Landing'
 import Navbar from './components/layout/Navbar'

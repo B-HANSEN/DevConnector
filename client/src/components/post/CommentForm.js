@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { connect } from 'react-redux'
-import { addComment } from '../../actions/post'
+import { addComment } from '../../slices/postSlice'
 
 const CommentForm = ({ postId, addComment }) => {
   const [text, setText] = useState('')

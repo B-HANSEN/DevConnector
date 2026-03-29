@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 import { connect } from 'react-redux'
-import { addLike, removeLike, deletePost } from '../../actions/post'
+import { addLike, removeLike, deletePost } from '../../slices/postSlice'
 
 const PostItem = ({
   addLike,

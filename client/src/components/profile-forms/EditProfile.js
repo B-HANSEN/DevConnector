@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { createProfile, getCurrentProfile } from '../../actions/profile'
+import { createProfile, getCurrentProfile } from '../../slices/profileSlice'
 
 const EditProfile = ({
   profile: { profile, loading },

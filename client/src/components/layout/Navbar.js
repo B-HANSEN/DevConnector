@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { logout } from '../../actions/auth'
+import { logout } from '../../slices/authSlice'
 
 const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
   const authLinks = (
@@ -47,7 +47,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
           <i className='fas fa-code'></i> DevConnector
         </Link>
       </h1>
-      {!loading && isAuthenticated && (
+      {!loading && isAuthenticated && user && (
         <p style={{ cursor: 'default' }}>
           Hi {user.name.split(' ').slice(0, 1)}!
         </p>

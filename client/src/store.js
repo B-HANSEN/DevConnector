@@ -1,36 +1,28 @@
-import { createStore, applyMiddleware } from 'redux'
-import { composeWithDevTools } from '@redux-devtools/extension'
-import { thunk } from 'redux-thunk'
-import rootReducer from './reducers'
+import { configureStore } from '@reduxjs/toolkit'
+import alertReducer from './slices/alertSlice'
+import authReducer from './slices/authSlice'
+import profileReducer from './slices/profileSlice'
+import postReducer from './slices/postSlice'
 import setAuthToken from './utils/setAuthToken'
 
-const initialState = {}
+const store = configureStore({
+  reducer: {
+    alert: alertReducer,
+    auth: authReducer,
+    profile: profileReducer,
+    post: postReducer,
+  },
+})
 
-const middleware = [thunk]
-
-const store = createStore(
-  rootReducer,
-  initialState,
-  composeWithDevTools(applyMiddleware(...middleware)),
-)
-
-// set up a store subscription listener
-// to store the user's token in localStorage
-
-// prevent auth error on first run of subscription
-let currentState = {
-  auth: { token: null, isAuthenticated: null, loading: true, user: null },
-}
-// let currentState = store.getState();
+// set up a store subscription listener to keep axios headers
+// and localStorage in sync whenever the token changes
+let currentState = store.getState()
 
 store.subscribe(() => {
-  // keep track of the previous and current state to compare changes
-  let previousState = currentState
+  const previousState = currentState
   currentState = store.getState()
-  // if the token changes, set the value in localStorage and axios headers
   if (previousState.auth.token !== currentState.auth.token) {
-    const token = currentState.auth.token
-    setAuthToken(token)
+    setAuthToken(currentState.auth.token)
   }
 })
 

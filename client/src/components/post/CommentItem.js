@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
-import { deleteComment } from '../../actions/post'
+import { deleteComment } from '../../slices/postSlice'
 
 const CommentItem = ({
   postId,

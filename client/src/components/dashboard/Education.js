@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import dayjs from 'dayjs'
-import { deleteEducation } from '../../actions/profile'
+import { deleteEducation } from '../../slices/profileSlice'
 
 const Education = ({ education, deleteEducation }) => {
   const educations = education.map((edu) => (
