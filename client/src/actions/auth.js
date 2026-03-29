@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { setAlert } from './alert'
+import setAuthToken from '../utils/setAuthToken'
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -41,6 +42,7 @@ export const register =
 
     try {
       const res = await axios.post('/api/users', body, config)
+      setAuthToken(res.data.token)
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data,
@@ -69,6 +71,7 @@ export const login = (email, password) => async (dispatch) => {
 
   try {
     const res = await axios.post('/api/auth', body, config)
+    setAuthToken(res.data.token)
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
