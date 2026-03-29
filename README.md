@@ -12,14 +12,14 @@ A social network for developers built with the MERN stack (MongoDB, Express, Rea
 
 ## Tech Stack
 
-**Backend:** Node.js, Express, MongoDB, Mongoose, JWT, bcryptjs
-**Frontend:** React, Redux, React Router, Axios
+**Backend:** Node.js (ESM), Express 5, MongoDB, Mongoose 9, JWT, bcryptjs, dotenv
+**Frontend:** React 19, Redux Toolkit, React Router 7, Axios, Vite 8
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js v14+
+- Node.js v18+
 - MongoDB Atlas account (or local MongoDB)
 
 ### Installation
@@ -30,14 +30,12 @@ A social network for developers built with the MERN stack (MongoDB, Express, Rea
 npm install
 ```
 
-2. Create `config/default.json` with your credentials (this file is gitignored):
+2. Create a `.env` file in the project root with your credentials (this file is gitignored):
 
-```json
-{
-    "mongoURI": "your_mongodb_connection_string",
-    "jwtSecret": "your_jwt_secret",
-    "githubToken": "your_github_personal_access_token"
-}
+```env
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+GITHUB_TOKEN=your_github_personal_access_token
 ```
 
 ### Running the App
@@ -97,6 +95,6 @@ Set the following environment variables in your Vercel project settings:
 
 ## Notes
 
-- `config/default.json` and `config/production.json` are gitignored — never commit credentials
-- The app uses the `config` package with `custom-environment-variables.json` to map env vars in production
+- Credentials are loaded via `.env` (gitignored) using `dotenv`, mapped to the `config` package via `config/custom-environment-variables.json`
 - Port defaults to `5001` locally (port 5000 is reserved by macOS AirPlay Receiver)
+- The server uses ES modules (`"type": "module"`) — Node.js v18+ required for native `fetch` support

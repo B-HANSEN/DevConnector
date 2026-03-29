@@ -24,7 +24,7 @@ const Dashboard = ({
       <h1 className='large text-primary'>Dashboard</h1>
       <p className='lead'>
         {/* if user is true, show user name */}
-        <i className='fas fa-user'> Welcome {user && user.name}</i>
+        <i className='fas fa-user' /> Welcome {user && user.name}
       </p>
       {profile !== null ? (
         <>
