@@ -1,5 +1,5 @@
-import { useDispatch } from 'react-redux'
 import dayjs from 'dayjs'
+import { useDispatch } from 'react-redux'
 import { deleteExperience } from '../../slices/profileSlice'
 
 const Experience = ({ experience }) => {
@@ -10,8 +10,8 @@ const Experience = ({ experience }) => {
       <td>{exp.company}</td>
       <td className='hide-sm'>{exp.title}</td>
       <td>
-        {dayjs(exp.from).format('YYYY/MM/DD')} -
-        {exp.to === null ? ' Now ' : dayjs(exp.to).format('YYYY/MM/DD')}
+        {dayjs(exp.from).format('DD.MM.YYYY')} -
+        {exp.to === null ? ' Now ' : dayjs(exp.to).format('DD.MM.YYYY')}
       </td>
       <td>
         <button

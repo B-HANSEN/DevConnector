@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { createProfile, getCurrentProfile } from '../../slices/profileSlice'
 import Spinner from '../layout/Spinner'
@@ -22,7 +22,8 @@ const EditProfile = () => {
 const EditProfileForm = ({ profile }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [formData, setFormData] = useState({
+
+  const initialData = {
     company: profile.company ?? '',
     website: profile.website ?? '',
     location: profile.location ?? '',
@@ -35,27 +36,22 @@ const EditProfileForm = ({ profile }) => {
     linkedin: profile.social?.linkedin ?? '',
     youtube: profile.social?.youtube ?? '',
     instagram: profile.social?.instagram ?? '',
-  })
+  }
 
+  const [formData, setFormData] = useState(initialData)
+  const [isDirty, setIsDirty] = useState(false)
   const [displaySocialInputs, toggleSocialInputs] = useState(false)
 
   const {
-    company,
-    website,
-    location,
-    status,
-    skills,
-    githubusername,
-    bio,
-    twitter,
-    facebook,
-    linkedin,
-    youtube,
-    instagram,
+    company, website, location, status, skills,
+    githubusername, bio, twitter, facebook, linkedin, youtube, instagram,
   } = formData
 
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+  const onChange = (e) => {
+    const updated = { ...formData, [e.target.name]: e.target.value }
+    setFormData(updated)
+    setIsDirty(Object.keys(updated).some((key) => updated[key] !== initialData[key]))
+  }
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -72,7 +68,11 @@ const EditProfileForm = ({ profile }) => {
       <small>* = required field</small>
       <form className='form' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
-          <select name='status' value={status} onChange={(e) => onChange(e)}>
+          <select
+            name='status'
+            value={status}
+            onChange={(e) => onChange(e)}
+          >
             <option value='0'>* Select Professional Status</option>
             <option value='Developer'>Developer</option>
             <option value='Junior Developer'>Junior Developer</option>
@@ -231,7 +231,14 @@ const EditProfileForm = ({ profile }) => {
           </>
         )}
 
-        <input type='submit' className='btn btn-primary my-1' />
+        <button
+          type='submit'
+          className='btn btn-primary my-1'
+          disabled={!isDirty}
+          style={{ opacity: isDirty ? 1 : 0.4, cursor: isDirty ? 'pointer' : 'not-allowed' }}
+        >
+          Save
+        </button>
         <Link className='btn btn-light my-1' to='/dashboard'>
           Go Back
         </Link>

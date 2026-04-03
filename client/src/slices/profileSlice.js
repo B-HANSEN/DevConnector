@@ -127,7 +127,7 @@ export const createProfile =
       // this route returns all profile data
       dispatch(profileLoaded(res.data))
       dispatch(setAlert(edit ? 'Profile updated.' : 'Profile created.', 'success'))
-      if (!edit) navigate('/dashboard')
+      navigate('/dashboard')
     } catch (err) {
       err.response.data.errors?.forEach((error) =>
         dispatch(setAlert(error.msg, 'danger')),
