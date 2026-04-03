@@ -1,8 +1,10 @@
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import dayjs from 'dayjs'
 import { deleteExperience } from '../../slices/profileSlice'
 
-const Experience = ({ experience, deleteExperience }) => {
+const Experience = ({ experience }) => {
+  const dispatch = useDispatch()
+
   const experiences = experience.map((exp) => (
     <tr key={exp._id}>
       <td>{exp.company}</td>
@@ -13,7 +15,7 @@ const Experience = ({ experience, deleteExperience }) => {
       </td>
       <td>
         <button
-          onClick={() => deleteExperience(exp._id)}
+          onClick={() => dispatch(deleteExperience(exp._id))}
           className='btn btn-danger'
         >
           Delete
@@ -38,4 +40,5 @@ const Experience = ({ experience, deleteExperience }) => {
     </>
   )
 }
-export default connect(null, { deleteExperience })(Experience)
+
+export default Experience

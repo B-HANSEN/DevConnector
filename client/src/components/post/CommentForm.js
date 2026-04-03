@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addComment } from '../../slices/postSlice'
 
-const CommentForm = ({ postId, addComment }) => {
+const CommentForm = ({ postId }) => {
+  const dispatch = useDispatch()
   const [text, setText] = useState('')
 
   return (
@@ -13,7 +14,7 @@ const CommentForm = ({ postId, addComment }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault()
-          addComment(postId, { text })
+          dispatch(addComment(postId, { text }))
           setText('')
         }}
         className='form my-1'
@@ -32,4 +33,5 @@ const CommentForm = ({ postId, addComment }) => {
     </div>
   )
 }
-export default connect(null, { addComment })(CommentForm)
+
+export default CommentForm

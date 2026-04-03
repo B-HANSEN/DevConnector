@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { createProfile } from '../../slices/profileSlice'
 
-const CreateProfile = ({ createProfile }) => {
+const CreateProfile = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     company: '',
@@ -22,7 +23,6 @@ const CreateProfile = ({ createProfile }) => {
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false)
 
-  // destructure from formData
   const {
     company,
     website,
@@ -38,13 +38,12 @@ const CreateProfile = ({ createProfile }) => {
     instagram,
   } = formData
 
-  // whatever is selected is put into the respective part of the state
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
   const onSubmit = (e) => {
     e.preventDefault()
-    createProfile(formData, navigate)
+    dispatch(createProfile(formData, navigate))
   }
 
   return (
@@ -223,4 +222,5 @@ const CreateProfile = ({ createProfile }) => {
     </>
   )
 }
-export default connect(null, { createProfile })(CreateProfile)
+
+export default CreateProfile

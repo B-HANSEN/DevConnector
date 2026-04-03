@@ -1,17 +1,20 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import { getPost } from '../../slices/postSlice'
 import PostItem from '../posts/PostItem'
 import CommentItem from '../post/CommentItem'
 import CommentForm from '../post/CommentForm'
 
-const Post = ({ getPost, post: { post, loading } }) => {
+const Post = () => {
+  const dispatch = useDispatch()
   const { id } = useParams()
+  const { post, loading } = useSelector((state) => state.post)
+
   useEffect(() => {
-    getPost(id)
-  }, [getPost, id])
+    dispatch(getPost(id))
+  }, [dispatch, id])
 
   return loading || post === null ? (
     <Spinner />
@@ -30,8 +33,5 @@ const Post = ({ getPost, post: { post, loading } }) => {
     </>
   )
 }
-const mapStateToProps = (state) => ({
-  post: state.post,
-})
 
-export default connect(mapStateToProps, { getPost })(Post)
+export default Post

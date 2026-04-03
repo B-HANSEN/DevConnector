@@ -1,10 +1,13 @@
 import { useState } from 'react'
-import { connect } from 'react-redux'
 import { Link, Navigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import { setAlert } from '../../slices/alertSlice'
 import { register } from '../../slices/authSlice'
 
-const Register = ({ setAlert, register, isAuthenticated }) => {
+const Register = () => {
+  const dispatch = useDispatch()
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -15,17 +18,15 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   const [showPassword2, setShowPassword2] = useState(false)
 
   const { name, email, password, password2 } = formData
-  // change state object, copy of formData and then change the name to value of input
-  // replace name with [e.target.name] to use for every field
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
   const onSubmit = async (e) => {
     e.preventDefault()
     if (password !== password2) {
-      setAlert('Passwords do not match.', 'danger')
+      dispatch(setAlert('Passwords do not match.', 'danger'))
     } else {
-      register({ name, email, password })
+      dispatch(register({ name, email, password }))
     }
   }
 
@@ -120,8 +121,5 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     </>
   )
 }
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-})
 
-export default connect(mapStateToProps, { setAlert, register })(Register)
+export default Register

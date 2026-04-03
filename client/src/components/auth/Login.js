@@ -1,9 +1,12 @@
 import { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { login } from '../../slices/authSlice'
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = () => {
+  const dispatch = useDispatch()
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -11,17 +14,14 @@ const Login = ({ login, isAuthenticated }) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const { email, password } = formData
-  // change state object, copy of formData and then change the name to value of input
-  // replace name with [e.target.name] to use for every field
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    login(email, password)
+    dispatch(login(email, password))
   }
 
-  // redirect if logged in
   if (isAuthenticated) {
     return <Navigate to='/dashboard' />
   }
@@ -78,9 +78,5 @@ const Login = ({ login, isAuthenticated }) => {
     </>
   )
 }
-// subscribe to Redux and get updates on isAuthenticated
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-})
 
-export default connect(mapStateToProps, { login })(Login)
+export default Login

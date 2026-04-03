@@ -1,8 +1,10 @@
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import dayjs from 'dayjs'
 import { deleteEducation } from '../../slices/profileSlice'
 
-const Education = ({ education, deleteEducation }) => {
+const Education = ({ education }) => {
+  const dispatch = useDispatch()
+
   const educations = education.map((edu) => (
     <tr key={edu._id}>
       <td>{edu.school}</td>
@@ -13,7 +15,7 @@ const Education = ({ education, deleteEducation }) => {
       </td>
       <td>
         <button
-          onClick={() => deleteEducation(edu._id)}
+          onClick={() => dispatch(deleteEducation(edu._id))}
           className='btn btn-danger'
         >
           Delete
@@ -38,4 +40,5 @@ const Education = ({ education, deleteEducation }) => {
     </>
   )
 }
-export default connect(null, { deleteEducation })(Education)
+
+export default Education

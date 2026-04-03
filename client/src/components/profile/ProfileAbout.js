@@ -9,7 +9,7 @@ const ProfileAbout = ({
   <div className='profile-about bg-light p-2'>
     {bio && (
       <>
-        <h2 className='text-primary'>{name.trim().split(' ')[0]}'s Bio</h2>
+        <h2 className='text-primary'>{name.trim().split(' ')[0]}&apos;s Bio</h2>
         <p>{bio}</p>
         <div className='line'></div>
       </>

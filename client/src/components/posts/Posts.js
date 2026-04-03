@@ -1,14 +1,17 @@
 import { useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import PostItem from './PostItem'
 import { getPosts } from '../../slices/postSlice'
 import PostForm from './PostForm'
 
-const Posts = ({ getPosts, post: { posts, loading } }) => {
+const Posts = () => {
+  const dispatch = useDispatch()
+  const { posts, loading } = useSelector((state) => state.post)
+
   useEffect(() => {
-    getPosts()
-  }, [getPosts])
+    dispatch(getPosts())
+  }, [dispatch])
 
   return loading ? (
     <Spinner />
@@ -27,8 +30,5 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
     </>
   )
 }
-const mapStateToProps = (state) => ({
-  post: state.post,
-})
 
-export default connect(mapStateToProps, { getPosts })(Posts)
+export default Posts

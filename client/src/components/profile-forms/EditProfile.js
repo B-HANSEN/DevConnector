@@ -1,27 +1,26 @@
 import { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { createProfile, getCurrentProfile } from '../../slices/profileSlice'
 import Spinner from '../layout/Spinner'
 
-
 // Outer container — fetches profile and shows spinner until ready
-const EditProfile = ({
-  profile: { profile, loading },
-  createProfile,
-  getCurrentProfile,
-}) => {
+const EditProfile = () => {
+  const dispatch = useDispatch()
+  const { profile, loading } = useSelector((state) => state.profile)
+
   useEffect(() => {
-    getCurrentProfile()
-  }, [getCurrentProfile])
+    dispatch(getCurrentProfile())
+  }, [dispatch])
 
   if (loading || !profile) return <Spinner />
 
-  return <EditProfileForm profile={profile} createProfile={createProfile} />
+  return <EditProfileForm profile={profile} />
 }
 
 // Inner form — only mounts after profile is loaded, so useState can initialize from props
-const EditProfileForm = ({ profile, createProfile }) => {
+const EditProfileForm = ({ profile }) => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     company: profile.company ?? '',
@@ -60,12 +59,12 @@ const EditProfileForm = ({ profile, createProfile }) => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    createProfile(formData, navigate, true)
+    dispatch(createProfile(formData, navigate, true))
   }
 
   return (
     <>
-      <h1 className='large text-primary'>Create Your Profile</h1>
+      <h1 className='large text-primary'>Edit Your Profile</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Let&apos;s get some information to make your
         profile stand out
@@ -241,12 +240,4 @@ const EditProfileForm = ({ profile, createProfile }) => {
   )
 }
 
-
-
-const mapStateToProps = (state) => ({
-  profile: state.profile,
-})
-
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
-  EditProfile,
-)
+export default EditProfile

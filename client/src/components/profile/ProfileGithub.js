@@ -1,12 +1,16 @@
 import { useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { getGithubRepos } from '../../slices/profileSlice'
 import Spinner from '../layout/Spinner'
 
-const ProfileGithub = ({ username, getGithubRepos, repos }) => {
+const ProfileGithub = ({ username }) => {
+  const dispatch = useDispatch()
+  const repos = useSelector((state) => state.profile.repos)
+
   useEffect(() => {
-    getGithubRepos(username)
-  }, [getGithubRepos, username])
+    dispatch(getGithubRepos(username))
+  }, [dispatch, username])
+
   return (
     <div className='profile-github'>
       <h2 className='text-primary my-1'>Github Repos</h2>
@@ -51,8 +55,5 @@ const ProfileGithub = ({ username, getGithubRepos, repos }) => {
     </div>
   )
 }
-const mapStateToProps = (state) => ({
-  repos: state.profile.repos,
-})
 
-export default connect(mapStateToProps, { getGithubRepos })(ProfileGithub)
+export default ProfileGithub

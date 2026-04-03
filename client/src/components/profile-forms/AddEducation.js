@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addEducation } from '../../slices/profileSlice'
 
-const AddEducation = ({ addEducation }) => {
+const AddEducation = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     school: '',
@@ -32,7 +33,7 @@ const AddEducation = ({ addEducation }) => {
         className='form'
         onSubmit={(e) => {
           e.preventDefault()
-          addEducation(formData, navigate)
+          dispatch(addEducation(formData, navigate))
         }}
       >
         <div className='form-group'>
@@ -110,4 +111,5 @@ const AddEducation = ({ addEducation }) => {
     </>
   )
 }
-export default connect(null, { addEducation })(AddEducation)
+
+export default AddEducation

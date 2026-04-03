@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../../slices/authSlice'
 
-const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
+const Navbar = () => {
+  const dispatch = useDispatch()
+  const { isAuthenticated, loading, user } = useSelector((state) => state.auth)
+
   const authLinks = (
     <ul>
       <li>
@@ -18,7 +21,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
         </Link>
       </li>
       <li>
-        <Link to='/' onClick={logout}>
+        <Link to='/' onClick={() => dispatch(logout())}>
           <i className='fas fa-sign-out-alt' />{' '}
           <span className='hide-sm'>Logout</span>
         </Link>
@@ -56,8 +59,5 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
     </nav>
   )
 }
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-})
 
-export default connect(mapStateToProps, { logout })(Navbar)
+export default Navbar

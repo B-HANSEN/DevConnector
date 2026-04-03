@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addPost } from '../../slices/postSlice'
 
-const PostForm = ({ addPost }) => {
+const PostForm = () => {
+  const dispatch = useDispatch()
   const [text, setText] = useState('')
 
   return (
@@ -13,9 +14,7 @@ const PostForm = ({ addPost }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault()
-          // form data within acton function:
-          addPost({ text })
-          // clear form:
+          dispatch(addPost({ text }))
           setText('')
         }}
         className='form my-1'
@@ -34,4 +33,5 @@ const PostForm = ({ addPost }) => {
     </div>
   )
 }
-export default connect(null, { addPost })(PostForm)
+
+export default PostForm

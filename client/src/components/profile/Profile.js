@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import ProfileTop from './ProfileTop'
 import ProfileAbout from './ProfileAbout'
@@ -9,11 +9,15 @@ import ProfileEducation from './ProfileEducation'
 import ProfileGithub from './ProfileGithub'
 import { getProfileById } from '../../slices/profileSlice'
 
-const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
+const Profile = () => {
+  const dispatch = useDispatch()
   const { id } = useParams()
+  const { profile, loading } = useSelector((state) => state.profile)
+  const auth = useSelector((state) => state.auth)
+
   useEffect(() => {
-    getProfileById(id)
-  }, [getProfileById, id])
+    dispatch(getProfileById(id))
+  }, [dispatch, id])
 
   return (
     <>
@@ -78,9 +82,5 @@ const Profile = ({ getProfileById, profile: { profile, loading }, auth }) => {
     </>
   )
 }
-const mapStateToProps = (state) => ({
-  profile: state.profile,
-  auth: state.auth,
-})
 
-export default connect(mapStateToProps, { getProfileById })(Profile)
+export default Profile

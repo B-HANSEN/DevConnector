@@ -1,21 +1,20 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import DashboardActions from './DashboardActions'
 import Experience from './Experience'
 import Education from './Education'
 import { getCurrentProfile, deleteAccount } from '../../slices/profileSlice'
 
-const Dashboard = ({
-  getCurrentProfile,
-  deleteAccount,
-  auth: { user },
-  profile: { profile, loading },
-}) => {
+const Dashboard = () => {
+  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.auth)
+  const { profile, loading } = useSelector((state) => state.profile)
+
   useEffect(() => {
-    getCurrentProfile()
-  }, [getCurrentProfile])
+    dispatch(getCurrentProfile())
+  }, [dispatch])
 
   return loading && profile === null ? (
     <Spinner />
@@ -23,7 +22,6 @@ const Dashboard = ({
     <>
       <h1 className='large text-primary'>Dashboard</h1>
       <p className='lead'>
-        {/* if user is true, show user name */}
         <i className='fas fa-user' /> Welcome {user && user.name}
       </p>
       {profile !== null ? (
@@ -32,7 +30,10 @@ const Dashboard = ({
           <Experience experience={profile.experience} />
           <Education education={profile.education} />
           <div className='my-2'>
-            <button onClick={() => deleteAccount()} className='btn btn-danger'>
+            <button
+              onClick={() => dispatch(deleteAccount())}
+              className='btn btn-danger'
+            >
               <i className='fas fa-user'></i> Delete My Account
             </button>
           </div>
@@ -48,11 +49,5 @@ const Dashboard = ({
     </>
   )
 }
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-  profile: state.profile,
-})
 
-export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
-  Dashboard,
-)
+export default Dashboard

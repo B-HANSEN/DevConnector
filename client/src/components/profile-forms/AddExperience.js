@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addExperience } from '../../slices/profileSlice'
 
-const AddExperience = ({ addExperience }) => {
+const AddExperience = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     company: '',
@@ -31,7 +32,7 @@ const AddExperience = ({ addExperience }) => {
         className='form'
         onSubmit={(e) => {
           e.preventDefault()
-          addExperience(formData, navigate)
+          dispatch(addExperience(formData, navigate))
         }}
       >
         <div className='form-group'>
@@ -109,4 +110,5 @@ const AddExperience = ({ addExperience }) => {
     </>
   )
 }
-export default connect(null, { addExperience })(AddExperience)
+
+export default AddExperience
