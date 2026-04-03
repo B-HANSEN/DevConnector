@@ -19,6 +19,9 @@ export default [
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
+    settings: {
+      react: { version: 'detect' },
+    },
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react/prop-types': 'off',

@@ -24,15 +24,18 @@ app.use('/api/auth', authRouter)
 app.use('/api/profile', profileRouter)
 app.use('/api/posts', postsRouter)
 
-// serve static assets in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'))
+// serve static assets in production (local only — Vercel serves the frontend separately)
+if (process.env.NODE_ENV === 'production' && !process.env.VERCEL) {
+  app.use(express.static('client/dist'))
   app.get('/{*path}', (req, res) => {
-    res.sendFile(resolve(__dirname, 'client', 'build', 'index.html'))
+    res.sendFile(resolve(__dirname, 'client', 'dist', 'index.html'))
   })
 }
 
-// looks for an env variable called PORT
-const PORT = process.env.PORT || 5001
+// local dev server
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 5001
+  app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
+}
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
+export default app
