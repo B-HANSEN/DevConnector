@@ -1,6 +1,6 @@
+import dayjs from 'dayjs'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import dayjs from 'dayjs'
 import { deleteComment } from '../../slices/postSlice'
 
 const CommentItem = ({
@@ -22,7 +22,7 @@ const CommentItem = ({
       {/* make sure that actual user who made the comment is logged in user */}
       {!auth.loading && user === auth.user._id && (
         <button
-          onClick={(e) => deleteComment(postId, _id)}
+          onClick={() => deleteComment(postId, _id)}
           type='button'
           className='btn btn-danger'
         >

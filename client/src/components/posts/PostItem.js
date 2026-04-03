@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 import { connect } from 'react-redux'
-import { addLike, removeLike, deletePost } from '../../slices/postSlice'
+import { Link } from 'react-router-dom'
+import { addLike, deletePost, removeLike } from '../../slices/postSlice'
 
 const PostItem = ({
   addLike,
@@ -46,7 +46,7 @@ const PostItem = ({
           {/* post user vs login user must match */}
           {!auth.loading && user === auth.user._id && (
             <button
-              onClick={(e) => deletePost(_id)}
+              onClick={() => deletePost(_id)}
               // disabled={user !== auth.user._id}
               type='button'
               className={'btn btn-danger'}

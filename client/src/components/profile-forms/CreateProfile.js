@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 import { createProfile } from '../../slices/profileSlice'
 
 const CreateProfile = ({ createProfile }) => {
@@ -51,7 +51,7 @@ const CreateProfile = ({ createProfile }) => {
     <>
       <h1 className='large text-primary'>Create Your Profile</h1>
       <p className='lead'>
-        <i className='fas fa-user'></i> Let's get some information to make your
+        <i className='fas fa-user'></i> Let&apos;s get some information to make your
         profile stand out
       </p>
       <small>* = required field</small>
