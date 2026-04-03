@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken'
-import config from 'config'
 
 // access to req/res object, next callback to run to move to next piece of middleware
 export default function (req, res, next) {
@@ -13,7 +12,7 @@ export default function (req, res, next) {
 
   // verify token if there is one
   try {
-    const decoded = jwt.verify(token, config.get('jwtSecret'))
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
     req.user = decoded.user
     next()
   } catch (err) {

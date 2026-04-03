@@ -1,7 +1,6 @@
 import express from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import config from 'config'
 import { check, validationResult } from 'express-validator'
 import auth from '../../middleware/auth.js'
 import User from '../../models/User.js'
@@ -61,7 +60,7 @@ router.post(
       const payload = { user: { id: user.id } }
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
+        process.env.JWT_SECRET,
         // expire in 100 hours in dev; tighten in production
         { expiresIn: 360000 },
         // callback: check for error or send token back to client

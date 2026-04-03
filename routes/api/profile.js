@@ -1,5 +1,4 @@
 import express from 'express'
-import config from 'config'
 import { check, validationResult } from 'express-validator'
 import auth from '../../middleware/auth.js'
 import Profile from '../../models/Profile.js'
@@ -278,7 +277,7 @@ router.get('/github/:username', async (req, res) => {
       {
         headers: {
           'user-agent': 'node.js',
-          Authorization: `token ${config.get('githubToken')}`,
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
         },
       },
     )
