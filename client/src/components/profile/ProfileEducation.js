@@ -7,7 +7,7 @@ const ProfileEducation = ({
     <h3 className='text-dark'>{school}</h3>
     <p>
       {dayjs(from).format('YYYY/MM/DD')} -{' '}
-      {!to ? 'Now' : dayjs(to).format('YYYY/MM/DD')}
+      {!to ? ' Now' : ` ${dayjs(to).format('YYYY/MM/DD')}`}
     </p>
     <p>
       <strong>Degree: </strong> {degree}

@@ -7,7 +7,7 @@ const ProfileExperience = ({
     <h3 className='text-dark'>{company}</h3>
     <p>
       {dayjs(from).format('YYYY/MM/DD')} -{' '}
-      {!to ? 'Now' : dayjs(to).format('YYYY/MM/DD')}
+      {!to ? ' Now' : ` ${dayjs(to).format('YYYY/MM/DD')}`}
     </p>
     <p>
       <strong>Position: </strong> {title}

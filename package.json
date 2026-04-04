@@ -3,33 +3,37 @@
 	"version": "2.0.0",
 	"description": "Social network for developers",
 	"type": "module",
-	"main": "server.js",
+	"main": "server.ts",
 	"scripts": {
-		"start": "node server",
-		"server": "nodemon server",
+		"start": "tsx server.ts",
+		"server": "tsx watch server.ts",
 		"client": "npm start --prefix client",
 		"postinstall": "npm install --prefix client",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
-		"format": "prettier --write \"**/*.{js,jsx}\" --ignore-path .gitignore",
+		"format": "prettier --write \"**/*.{ts,js,jsx}\" --ignore-path .gitignore",
 		"lint": "npm run lint --prefix client",
-		"lint:fix": "npm run lint:fix --prefix client",
-		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+		"lint:fix": "npm run lint:fix --prefix client"
 	},
 	"author": "Bjoern Hansen",
 	"license": "MIT",
 	"dependencies": {
+		"@hono/node-server": "^1.13.8",
 		"bcryptjs": "^3.0.3",
-		"config": "^4.4.1",
 		"dotenv": "^17.3.1",
-		"express": "^5.2.1",
-		"express-validator": "^7.3.1",
 		"gravatar": "^1.8.2",
+		"hono": "^4.7.11",
 		"jsonwebtoken": "^9.0.3",
-		"mongoose": "^9.3.3"
+		"mongoose": "^9.3.3",
+		"zod": "^3.25.67"
 	},
 	"devDependencies": {
+		"@types/bcryptjs": "^2.4.6",
+		"@types/gravatar": "^1.8.6",
+		"@types/jsonwebtoken": "^9.0.9",
+		"@types/node": "^22.15.3",
 		"concurrently": "^9.2.1",
-		"nodemon": "^3.1.14",
-		"prettier": "^3.8.1"
+		"prettier": "^3.8.1",
+		"tsx": "^4.19.4",
+		"typescript": "^5.8.3"
 	}
 }

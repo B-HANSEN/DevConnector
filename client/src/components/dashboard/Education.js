@@ -1,5 +1,5 @@
-import { useDispatch } from 'react-redux'
 import dayjs from 'dayjs'
+import { useDispatch } from 'react-redux'
 import { deleteEducation } from '../../slices/profileSlice'
 
 const Education = ({ education }) => {
@@ -10,8 +10,8 @@ const Education = ({ education }) => {
       <td>{edu.school}</td>
       <td className='hide-sm'>{edu.degree}</td>
       <td>
-        {dayjs(edu.from).format('YYYY/MM/DD')} -
-        {edu.to === null ? ' Now ' : dayjs(edu.to).format('YYYY/MM/DD')}
+        {dayjs(edu.from).format('DD.MM.YYYY')} - 
+        {edu.to === null ? ' Now ' : ` ${dayjs(edu.to).format('DD.MM.YYYY')}`}
       </td>
       <td>
         <button

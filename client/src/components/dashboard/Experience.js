@@ -10,8 +10,8 @@ const Experience = ({ experience }) => {
       <td>{exp.company}</td>
       <td className='hide-sm'>{exp.title}</td>
       <td>
-        {dayjs(exp.from).format('DD.MM.YYYY')} -
-        {exp.to === null ? ' Now ' : dayjs(exp.to).format('DD.MM.YYYY')}
+        {dayjs(exp.from).format('DD.MM.YYYY')} - 
+        {exp.to === null ? ' Now ' : ` ${dayjs(exp.to).format('DD.MM.YYYY')}`}
       </td>
       <td>
         <button
