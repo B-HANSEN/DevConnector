@@ -1,6 +1,6 @@
 # DevConnector
 
-A social network for developers built with the MERN stack (MongoDB, Express, React, Node.js).
+A social network for developers built with MongoDB, React, and Node.js.
 
 ## Features
 
@@ -12,7 +12,7 @@ A social network for developers built with the MERN stack (MongoDB, Express, Rea
 
 ## Tech Stack
 
-**Backend:** Node.js (ESM), Express 5, MongoDB, Mongoose 9, JWT, bcryptjs, dotenv
+**Backend:** Node.js (ESM), TypeScript, Hono, MongoDB, Mongoose 9, JWT, bcryptjs, Zod, dotenv
 **Frontend:** React 19, Redux Toolkit, React Router 7, Axios, Vite 8
 
 ## Getting Started
@@ -95,6 +95,6 @@ Set the following environment variables in your Vercel project settings:
 
 ## Notes
 
-- Credentials are loaded via `.env` (gitignored) using `dotenv`, mapped to the `config` package via `config/custom-environment-variables.json`
+- Credentials are loaded via `.env` (gitignored) using `dotenv`
 - Port defaults to `5001` locally (port 5000 is reserved by macOS AirPlay Receiver)
 - The server uses ES modules (`"type": "module"`) — Node.js v18+ required for native `fetch` support
