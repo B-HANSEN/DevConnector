@@ -40,7 +40,7 @@ const Login = () => {
             required
           />
         </div>
-        <div className='form-group' style={{ position: 'relative' }}>
+        <div className='form-group form-group-password'>
           <input
             type={showPassword ? 'text' : 'password'}
             placeholder='Password'
@@ -53,16 +53,7 @@ const Login = () => {
           <button
             type='button'
             onClick={() => setShowPassword(!showPassword)}
-            style={{
-              position: 'absolute',
-              right: '0.75rem',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              color: '#aaa',
-            }}
+            className='password-toggle'
           >
             <i className={showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'} />
           </button>

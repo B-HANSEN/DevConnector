@@ -63,7 +63,7 @@ const Register = () => {
             Gravatar email
           </small>
         </div>
-        <div className='form-group' style={{ position: 'relative' }}>
+        <div className='form-group form-group-password'>
           <input
             type={showPassword ? 'text' : 'password'}
             placeholder='Password'
@@ -74,21 +74,12 @@ const Register = () => {
           <button
             type='button'
             onClick={() => setShowPassword(!showPassword)}
-            style={{
-              position: 'absolute',
-              right: '0.75rem',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              color: '#aaa',
-            }}
+            className='password-toggle'
           >
             <i className={showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'} />
           </button>
         </div>
-        <div className='form-group' style={{ position: 'relative' }}>
+        <div className='form-group form-group-password'>
           <input
             type={showPassword2 ? 'text' : 'password'}
             placeholder='Confirm Password'
@@ -99,16 +90,7 @@ const Register = () => {
           <button
             type='button'
             onClick={() => setShowPassword2(!showPassword2)}
-            style={{
-              position: 'absolute',
-              right: '0.75rem',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              color: '#aaa',
-            }}
+            className='password-toggle'
           >
             <i className={showPassword2 ? 'fas fa-eye-slash' : 'fas fa-eye'} />
           </button>

@@ -51,7 +51,7 @@ const Navbar = () => {
         </Link>
       </h1>
       {!loading && isAuthenticated && user && (
-        <p style={{ cursor: 'default' }}>
+        <p className='navbar-greeting'>
           Hi {user.name.split(' ').slice(0, 1)}!
         </p>
       )}

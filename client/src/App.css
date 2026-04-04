@@ -209,6 +209,36 @@ img {
 	opacity: 0.8;
 }
 
+.btn:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+.spinner {
+	width: 200px;
+	margin: auto;
+	display: block;
+}
+
+.form-group-password {
+	position: relative;
+}
+
+.password-toggle {
+	position: absolute;
+	right: 0.75rem;
+	top: 50%;
+	transform: translateY(-50%);
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: #aaa;
+}
+
+.navbar-greeting {
+	cursor: default;
+}
+
 .bg-light,
 .badge-light {
 	border: #ccc solid 1px;

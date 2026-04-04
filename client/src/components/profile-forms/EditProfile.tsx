@@ -177,7 +177,6 @@ const EditProfileForm = ({ profile }: { profile: Profile }) => {
           type='submit'
           className='btn btn-primary my-1'
           disabled={!isDirty}
-          style={{ opacity: isDirty ? 1 : 0.4, cursor: isDirty ? 'pointer' : 'not-allowed' }}
         >
           Save
         </button>
