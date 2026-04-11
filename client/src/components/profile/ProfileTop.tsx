@@ -1,4 +1,5 @@
 import type { Profile } from '../../types'
+import styles from './ProfileTop.module.css'
 
 interface Props {
   profile: Profile
@@ -14,7 +15,7 @@ const ProfileTop = ({
     user: { name, avatar },
   },
 }: Props) => (
-  <div className='profile-top bg-primary p-2'>
+  <div className={`${styles.profileTop} bg-primary p-2`}>
     <img className='round-img my-1' src={avatar} alt='' />
     <h1 className='large'>{name}</h1>
     <p className='lead'>
@@ -22,7 +23,7 @@ const ProfileTop = ({
     </p>
     <p>{location && <span>{location} </span>}</p>
 
-    <div className='icons my-1'>
+    <div className={`${styles.icons} my-1`}>
       {website && (
         <a href={website} target='_blank' rel='noopener noreferrer'>
           <i className='fas fa-globe fa-2x'></i>

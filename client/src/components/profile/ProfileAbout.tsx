@@ -1,4 +1,5 @@
 import type { Profile } from '../../types'
+import styles from './ProfileAbout.module.css'
 
 interface Props {
   profile: Profile
@@ -11,7 +12,7 @@ const ProfileAbout = ({
     user: { name },
   },
 }: Props) => (
-  <div className='profile-about bg-light p-2'>
+  <div className={`${styles.profileAbout} bg-light p-2`}>
     {bio && (
       <>
         <h2 className='text-primary'>{name.trim().split(' ')[0]}&apos;s Bio</h2>
@@ -20,7 +21,7 @@ const ProfileAbout = ({
       </>
     )}
     <h2 className='text-primary'>Skill Set</h2>
-    <div className='skills'>
+    <div className={styles.skills}>
       {skills.map((skill, index) => (
         <div key={index} className='p-1'>
           <i className='fas fa-check'></i> {skill}

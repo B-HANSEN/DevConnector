@@ -1,9 +1,10 @@
 import spinner from './spinner.gif'
+import styles from './Spinner.module.css'
 
 const Spinner = () => (
   <img
     src={spinner}
-    className='spinner'
+    className={styles.spinner}
     alt='Loading...'
   />
 )

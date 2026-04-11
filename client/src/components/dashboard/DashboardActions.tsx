@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
+import styles from './DashboardActions.module.css'
 
 const DashboardActions = () => (
-  <div className='dash-buttons'>
+  <div className={styles.dashButtons}>
     <Link to='/edit-profile' className='btn btn-light'>
       <i className='fas fa-user-circle text-primary'></i> Edit Profile
     </Link>

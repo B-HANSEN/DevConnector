@@ -3,6 +3,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks'
 import { Link } from 'react-router-dom'
 import { addLike, deletePost, removeLike } from '../../slices/postSlice'
 import type { Post } from '../../types'
+import styles from './PostItem.module.css'
 
 interface Props {
   post: Post
@@ -42,7 +43,7 @@ const PostItem = ({ post: { _id, text, name, avatar, user, likes, comments, date
             <Link to={`/posts/${_id}`} className='btn btn-primary'>
               Discussion{' '}
               {comments.length > 0 && (
-                <span className='comment-count'>{comments.length}</span>
+                <span className={styles.commentCount}>{comments.length}</span>
               )}
             </Link>
             {!auth.loading && user === auth.user?._id && (

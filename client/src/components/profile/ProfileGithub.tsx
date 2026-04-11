@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useAppSelector, useAppDispatch } from '../../hooks'
 import { getGithubRepos } from '../../slices/profileSlice'
 import Spinner from '../layout/Spinner'
+import styles from './ProfileGithub.module.css'
 
 interface Props {
   username: string
@@ -16,13 +17,13 @@ const ProfileGithub = ({ username }: Props) => {
   }, [dispatch, username])
 
   return (
-    <div className='profile-github'>
+    <div className={styles.profileGithub}>
       <h2 className='text-primary my-1'>Github Repos</h2>
       {repos.length === 0 ? (
         <Spinner />
       ) : (
         repos.map((repo) => (
-          <div key={repo.id} className='repo bg-white p-1 my-1'>
+          <div key={repo.id} className={`${styles.repo} bg-white p-1 my-1`}>
             <div>
               <h4>
                 <a href={repo.html_url} target='_blank' rel='noopener noreferrer'>

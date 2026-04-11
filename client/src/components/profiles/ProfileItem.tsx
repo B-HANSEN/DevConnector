@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { Profile } from '../../types'
+import styles from './ProfileItem.module.css'
 
 interface Props {
   profile: Profile
@@ -15,7 +16,7 @@ const ProfileItem = ({
   },
 }: Props) => {
   return (
-    <div className='profile bg-light'>
+    <div className={`${styles.profile} bg-light`}>
       <img src={avatar} className='round-img' alt='' />
       <div>
         <h2>{name}</h2>

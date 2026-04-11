@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../hooks'
 import { logout } from '../../slices/authSlice'
+import styles from './Navbar.module.css'
 
 const Navbar = () => {
   const dispatch = useAppDispatch()
@@ -44,14 +45,14 @@ const Navbar = () => {
   )
 
   return (
-    <nav className='navbar bg-dark'>
+    <nav className={`${styles.navbar} bg-dark`}>
       <h1>
         <Link to='/'>
           <i className='fas fa-code'></i> DevConnector
         </Link>
       </h1>
       {!loading && isAuthenticated && user && (
-        <p className='navbar-greeting'>
+        <p className={styles.navbarGreeting}>
           Hi {user.name.split(' ').slice(0, 1)}!
         </p>
       )}

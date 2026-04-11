@@ -8,6 +8,7 @@ import ProfileExperience from './ProfileExperience'
 import ProfileEducation from './ProfileEducation'
 import ProfileGithub from './ProfileGithub'
 import { getProfileById } from '../../slices/profileSlice'
+import styles from './Profile.module.css'
 
 const Profile = () => {
   const dispatch = useAppDispatch()
@@ -36,10 +37,10 @@ const Profile = () => {
               </Link>
             )}
 
-          <div className='profile-grid my-1'>
+          <div className={`${styles.profileGrid} my-1`}>
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
-            <div className='profile-exp bg-white p-2'>
+            <div className={`${styles.profileExp} bg-white p-2`}>
               <h2 className='text-primary'>Experience</h2>
               {profile.experience.length > 0 ? (
                 profile.experience.map((experience) => (
@@ -49,7 +50,7 @@ const Profile = () => {
                 <h4>No experience credentials</h4>
               )}
             </div>
-            <div className='profile-edu bg-white p-2'>
+            <div className={`${styles.profileEdu} bg-white p-2`}>
               <h2 className='text-primary'>Education</h2>
               {profile.education.length > 0 ? (
                 profile.education.map((education) => (

@@ -1,5 +1,6 @@
 import { Link, Navigate } from 'react-router-dom'
 import { useAppSelector } from '../../hooks'
+import styles from './Landing.module.css'
 
 const Landing = () => {
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
@@ -9,9 +10,9 @@ const Landing = () => {
   }
 
   return (
-    <section className='landing'>
-      <div className='dark-overlay'>
-        <div className='landing-inner'>
+    <section className={styles.landing}>
+      <div className={styles.darkOverlay}>
+        <div className={styles.landingInner}>
           <h1 className='x-large'>Developer Connector</h1>
           <p className='lead'>
             Create a developer profile/portfolio, share posts and get help from
