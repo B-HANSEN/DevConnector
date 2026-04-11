@@ -62,7 +62,15 @@ export const loadUser = () => async (dispatch: AppDispatch) => {
 }
 
 export const register =
-  ({ name, email, password }: { name: string; email: string; password: string }) =>
+  ({
+    name,
+    email,
+    password,
+  }: {
+    name: string
+    email: string
+    password: string
+  }) =>
   async (dispatch: AppDispatch) => {
     try {
       const res = await axios.post<{ token: string }>('/api/users', {

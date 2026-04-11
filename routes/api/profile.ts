@@ -189,7 +189,15 @@ router.put('/experience', authMiddleware, async (c) => {
   try {
     const profile = await Profile.findOne({ user: c.get('user').id })
     if (!profile) return c.json({ msg: 'Profile not found.' }, 400)
-    profile.experience.unshift({ title, company, location, from: new Date(from), to: to ? new Date(to) : undefined, current, description })
+    profile.experience.unshift({
+      title,
+      company,
+      location,
+      from: new Date(from),
+      to: to ? new Date(to) : undefined,
+      current,
+      description,
+    })
     await profile.save()
     return c.json(profile)
   } catch (err) {
@@ -246,7 +254,15 @@ router.put('/education', authMiddleware, async (c) => {
   try {
     const profile = await Profile.findOne({ user: c.get('user').id })
     if (!profile) return c.json({ msg: 'Profile not found.' }, 400)
-    profile.education.unshift({ school, degree, fieldofstudy, from: new Date(from), to: to ? new Date(to) : undefined, current, description })
+    profile.education.unshift({
+      school,
+      degree,
+      fieldofstudy,
+      from: new Date(from),
+      to: to ? new Date(to) : undefined,
+      current,
+      description,
+    })
     await profile.save()
     return c.json(profile)
   } catch (err) {

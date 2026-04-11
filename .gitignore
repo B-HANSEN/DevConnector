@@ -1,6 +1,9 @@
 .claude/
 .qodo/
 node_modules/
+client/node_modules/
+client/dist/
+dist/
 config/default.json
 config/production.json
 

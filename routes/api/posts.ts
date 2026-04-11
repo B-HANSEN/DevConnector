@@ -114,7 +114,9 @@ router.put('/like/:id', authMiddleware, async (c) => {
       return c.json({ msg: 'Post already liked.' }, 400)
     }
     // if not yet liked, add to the beginning of the likes array
-    post.likes.unshift({ user: c.get('user').id as unknown as typeof post.likes[0]['user'] })
+    post.likes.unshift({
+      user: c.get('user').id as unknown as (typeof post.likes)[0]['user'],
+    })
     await post.save()
     return c.json(post.likes)
   } catch (err) {
@@ -132,7 +134,9 @@ router.put('/unlike/:id', authMiddleware, async (c) => {
     if (!post) return c.json({ msg: 'Post not found.' }, 404)
 
     // check if post has been liked by this user
-    if (!post.likes.some((like) => like.user?.toString() === c.get('user').id)) {
+    if (
+      !post.likes.some((like) => like.user?.toString() === c.get('user').id)
+    ) {
       return c.json({ msg: 'Post has not yet been liked.' }, 400)
     }
     // get remove index
@@ -171,7 +175,7 @@ router.post('/comment/:id', authMiddleware, async (c) => {
       text: result.data.text,
       name: user.name,
       avatar: user.avatar,
-      user: c.get('user').id as unknown as typeof post.comments[0]['user'],
+      user: c.get('user').id as unknown as (typeof post.comments)[0]['user'],
     }
 
     // unshift() adds to the beginning of the comments array

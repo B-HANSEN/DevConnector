@@ -130,7 +130,9 @@ export const createProfile =
     try {
       const res = await axios.post<Profile>('/api/profile', formData)
       dispatch(profileLoaded(res.data))
-      dispatch(setAlert(edit ? 'Profile updated.' : 'Profile created.', 'success'))
+      dispatch(
+        setAlert(edit ? 'Profile updated.' : 'Profile created.', 'success'),
+      )
       navigate('/dashboard')
     } catch (err) {
       const error = err as AxiosError<{ errors?: { msg: string }[] }>
@@ -202,7 +204,9 @@ export const deleteAccount = () => async (dispatch: AppDispatch) => {
     try {
       await axios.delete('/api/profile')
       dispatch(clearAuth())
-      dispatch(setAlert('Your account has been permanently deleted.', 'success'))
+      dispatch(
+        setAlert('Your account has been permanently deleted.', 'success'),
+      )
     } catch (err) {
       dispatch(profileError(toProfileError(err)))
     }
