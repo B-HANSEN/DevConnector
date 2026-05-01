@@ -19,7 +19,7 @@ A social network for developers built with MongoDB, React, and Node.js.
 
 ### Prerequisites
 
-- Node.js v18+
+- Node.js v20+
 - MongoDB Atlas account (or local MongoDB)
 
 ### Installation
@@ -97,4 +97,4 @@ Set the following environment variables in your Vercel project settings:
 
 - Credentials are loaded via `.env` (gitignored) using `dotenv`
 - Port defaults to `5001` locally (port 5000 is reserved by macOS AirPlay Receiver)
-- The server uses ES modules (`"type": "module"`) — Node.js v18+ required for native `fetch` support
+- The server uses ES modules (`"type": "module"`) — Node.js v20+ required (`@hono/node-server` v2 minimum)
