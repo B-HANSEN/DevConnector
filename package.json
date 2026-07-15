@@ -7,6 +7,7 @@
 	"scripts": {
 		"start": "tsx server.ts",
 		"server": "tsx watch server.ts",
+		"typecheck": "tsc --noEmit",
 		"client": "npm start --prefix client",
 		"postinstall": "npm install --prefix client",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -34,6 +35,6 @@
 		"concurrently": "^9.2.1",
 		"prettier": "^3.8.1",
 		"tsx": "^4.19.4",
-		"typescript": "^6.0.3"
+		"typescript": "^7.0.2"
 	}
 }
